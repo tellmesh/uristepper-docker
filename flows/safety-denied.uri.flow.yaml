@@ -1,0 +1,17 @@
+{
+  "flow": {
+    "id": "stepper-safety-denied"
+  },
+  "defaults": {
+    "approved": true
+  },
+  "do": [
+    {
+      "stepper://machine-01/axis/x/command/move-relative": {
+        "steps": 500000,
+        "direction": "cw",
+        "speed_sps": 250
+      }
+    }
+  ]
+}

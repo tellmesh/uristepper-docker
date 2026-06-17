@@ -1,0 +1,35 @@
+{
+  "flow": {
+    "id": "stepper-docker-move-test",
+    "description": "Query status, enable axis X, move CW/CCW, home and disable. JSON syntax is valid YAML."
+  },
+  "defaults": {
+    "approved": true,
+    "dry_run": false
+  },
+  "do": [
+    "stepper://machine-01/axis/x/query/status",
+    "stepper://machine-01/axis/x/command/enable",
+    {
+      "stepper://machine-01/axis/x/command/move-relative": {
+        "steps": 200,
+        "direction": "cw",
+        "speed_sps": 250
+      }
+    },
+    {
+      "stepper://machine-01/axis/x/command/move-relative": {
+        "steps": 200,
+        "direction": "ccw",
+        "speed_sps": 250
+      }
+    },
+    {
+      "stepper://machine-01/axis/x/command/home": {
+        "direction": "ccw",
+        "speed_sps": 120
+      }
+    },
+    "stepper://machine-01/axis/x/command/disable"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "apiVersion": "urisys.io/v1",
+  "kind": "UriDeviceProfile",
+  "metadata": {
+    "id": "machine-01",
+    "name": "Docker mock stepper profile"
+  },
+  "runtime": {
+    "implementation": "uristepper-python-mock",
+    "endpoint": "http://uristepper:8790/uri/call"
+  },
+  "contracts": [
+    "uristepper.contract@1.0.0"
+  ],
+  "axes": {
+    "x": {
+      "driver": "mock",
+      "step_pin": 17,
+      "dir_pin": 27,
+      "enable_pin": 22,
+      "enable_active_low": true,
+      "microsteps": 16,
+      "steps_per_revolution": 200,
+      "screw_pitch_mm": 8,
+      "min_pulse_us": 5
+    },
+    "y": {
+      "driver": "mock",
+      "step_pin": 23,
+      "dir_pin": 24,
+      "enable_pin": 25,
+      "enable_active_low": true,
+      "microsteps": 16,
+      "steps_per_revolution": 200,
+      "screw_pitch_mm": 8,
+      "min_pulse_us": 5
+    }
+  },
+  "safety": {
+    "x": {
+      "max_speed_sps": 1200,
+      "max_acceleration_sps2": 800,
+      "max_single_move_steps": 10000,
+      "min_position_steps": -20000,
+      "max_position_steps": 20000,
+      "default_speed_sps": 250,
+      "home_direction": "ccw",
+      "home_speed_sps": 100,
+      "require_approval": true
+    },
+    "y": {
+      "max_speed_sps": 800,
+      "max_acceleration_sps2": 500,
+      "max_single_move_steps": 8000,
+      "min_position_steps": -10000,
+      "max_position_steps": 10000,
+      "default_speed_sps": 200,
+      "require_approval": true
+    }
+  }
+}

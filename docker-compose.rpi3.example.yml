@@ -1,0 +1,21 @@
+# Optional example for Raspberry Pi OS with real GPIO.
+# Use with caution. Start with dry-run and verify wiring/current limits.
+services:
+  uristepper-rpi3:
+    build: .
+    container_name: uristepper-rpi3
+    privileged: true
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    ports:
+      - "8790:8790"
+    environment:
+      URISYS_DEVICE_PROFILE: /app/config/device-profile.rpi3.example.json
+      URISYS_EVENTS_PATH: /data/events.jsonl
+      URISYS_STATE_PATH: /data/stepper_state.json
+    volumes:
+      - uristepper-rpi3-data:/data
+    # For real GPIO the image needs gpiozero/lgpio installed. This minimal image does not install them.
+    # Add them in a derived image or run natively on the RPi.
+volumes:
+  uristepper-rpi3-data:

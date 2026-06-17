@@ -1,0 +1,35 @@
+services:
+  uristepper:
+    build:
+      context: ..
+      dockerfile: uristepper-docker/Dockerfile
+    container_name: uristepper-docker
+    ports:
+      - "8791:8790"
+    environment:
+      URISYS_NODE_ID: uristepper-docker
+      URISYS_DEVICE_PROFILE: /app/config/device-profile.json
+      URISYS_EVENTS_PATH: /data/events.jsonl
+      URISYS_STATE_PATH: /data/stepper_state.json
+    volumes:
+      - uristepper-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8790/health', timeout=2).status == 200 else 1)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  e2e:
+    build:
+      context: ..
+      dockerfile: uristepper-docker/Dockerfile
+    profiles: ["test"]
+    depends_on:
+      uristepper:
+        condition: service_healthy
+    environment:
+      URISTEPPER_BASE_URL: http://uristepper:8790
+    command: ["python", "tests/e2e.py"]
+
+volumes:
+  uristepper-data:

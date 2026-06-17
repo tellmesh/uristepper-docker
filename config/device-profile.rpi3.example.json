@@ -1,0 +1,33 @@
+{
+  "apiVersion": "urisys.io/v1",
+  "kind": "UriDeviceProfile",
+  "metadata": {
+    "id": "machine-01",
+    "name": "RPi3 STEP/DIR stepper profile"
+  },
+  "runtime": {
+    "implementation": "uristepper-rpi-gpio-python",
+    "endpoint": "http://rpi3.local:8790/uri/call"
+  },
+  "contracts": [
+    "uristepper.contract@1.0.0"
+  ],
+  "axes": {
+    "x": {
+      "driver": "rpi-gpio-step-dir",
+      "step_pin": 17,
+      "dir_pin": 27,
+      "enable_pin": 22,
+      "enable_active_low": true,
+      "min_pulse_us": 5
+    }
+  },
+  "safety": {
+    "x": {
+      "max_speed_sps": 1200,
+      "max_single_move_steps": 10000,
+      "default_speed_sps": 250,
+      "require_approval": true
+    }
+  }
+}

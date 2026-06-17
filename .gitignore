@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/*.jsonl
+data/*.json
+.pytest_cache/
+
+# Environment variables
+.env
