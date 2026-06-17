@@ -73,6 +73,17 @@ stepper://machine-01/axis/x/command/move-relative
 
 Dzięki temu aplikacja, flow, shell i frontend nie zależą od tego, czy wykonanie jest w Dockerze, na RPi, przez USB, czy na ESP32-P4.
 
+## Stack
+
+```txt
+../uristepper/            → stepper:// capability pack (manifest-first)
+../uristepperedge/        → HTTP edge (:8790) for device hosts
+flows/*.uri.flow.yaml     → local flow runner
+config/device-profile.json
+markpacts/                → docker bundle markpact
+../uristepper/markpacts/  → contract + pack + implementations
+```
+
 ## Device profile
 
 Konfiguracja konkretnego urządzenia jest w:
@@ -125,8 +136,9 @@ flows/move-test.uri.flow.yaml
 Uruchomienie lokalnie:
 
 ```bash
-export PYTHONPATH=$PWD/packages/python
-python -m urisysedge \
+export URISYS_DEVICE_PROFILE=config/device-profile.json
+export URISYS_EVENTS_PATH=data/events.jsonl
+python -m uristepperedge \
   --device-config config/device-profile.json \
   --events data/events.jsonl \
   flow flows/move-test.uri.flow.yaml \
@@ -136,18 +148,26 @@ python -m urisysedge \
 
 ## Markpact
 
+Contract, pack and implementations live in the capability repo:
+
 ```text
-markpacts/uristepper.contract.markpact.md
-markpacts/uristepper-python-mock.markpact.md
-markpacts/uristepper-rpi-gpio-python.markpact.md
+../uristepper/markpacts/uristepper.contract.markpact.md
+../uristepper/markpacts/uristepper.pack.markpact.md
+../uristepper/markpacts/uristepper-python-mock.markpact.md
+../uristepper/markpacts/uristepper-rpi-gpio-python.markpact.md
+```
+
+Docker bundle (this repo):
+
+```text
 markpacts/uristepper-docker.bundle.markpact.md
 ```
 
 Publikacja na `markpact.com`:
 
 ```bash
-markpact publish markpacts/uristepper.contract.markpact.md
-markpact publish markpacts/uristepper-python-mock.markpact.md
+markpact publish ../uristepper/markpacts/uristepper.contract.markpact.md
+markpact publish ../uristepper/markpacts/uristepper-python-mock.markpact.md
 ```
 
 Potem inne urządzenia mogą pobrać kontrakt:

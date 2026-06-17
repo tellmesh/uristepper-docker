@@ -16,10 +16,10 @@ call:
 	./scripts/call-http.sh
 
 flow:
-	PYTHONPATH=../packages/python:$$PWD/packages/python python -m uristepperedge --device-config config/device-profile.json --events data/events.jsonl flow flows/move-test.uri.flow.yaml --approve --dry-run
+	uv run python -m uristepperedge --device-config config/device-profile.json --events data/events.jsonl flow flows/move-test.uri.flow.yaml --approve --dry-run
 
 routes:
-	PYTHONPATH=../packages/python:$$PWD/packages/python python -m uristepperedge --device-config config/device-profile.json routes
+	uv run python -m uristepperedge --device-config config/device-profile.json routes
 
 events:
-	PYTHONPATH=../packages/python:$$PWD/packages/python python -m uristepperedge --device-config config/device-profile.json --events data/events.jsonl events
+	uv run python -m uristepperedge --device-config config/device-profile.json --events data/events.jsonl events

@@ -10,9 +10,9 @@ metadata:
   version: 0.1.0
 imports:
   contracts:
-    - ./uristepper.contract.markpact.md
+    - ../../uristepper/markpacts/uristepper.contract.markpact.md
   implementations:
-    - ./uristepper-python-mock.markpact.md
+    - ../../uristepper/markpacts/uristepper-python-mock.markpact.md
 overlays:
   device_profiles:
     - ../config/device-profile.json

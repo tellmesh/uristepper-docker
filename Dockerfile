@@ -15,12 +15,14 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /build
 COPY urisysedge /build/urisysedge
 COPY uristepper /build/uristepper
+COPY uristepperedge /build/uristepperedge
 COPY uristepper-docker /build/uristepper-docker
 RUN pip install --no-cache-dir \
     -e /build/urisysedge \
     -e /build/uristepper \
-    -e /build/uristepper-docker \
-    && mkdir -p /data
+    -e /build/uristepperedge \
+    && mkdir -p /data /app/config \
+    && cp /build/uristepper-docker/config/device-profile.json /app/config/
 WORKDIR /build/uristepper-docker
 EXPOSE 8790
 CMD ["python", "-m", "uristepperedge", "serve", "--host", "0.0.0.0", "--port", "8790"]
