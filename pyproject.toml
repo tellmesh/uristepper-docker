@@ -7,12 +7,11 @@ name = "uristepper-docker-example"
 version = "0.1.0"
 description = "Docker demo for stepper:// (device profile, flows, markpact bundle)"
 requires-python = ">=3.10"
-dependencies = ["uristepper>=0.1.0", "uristepperedge>=0.1.0", "urisysedge>=0.1.0"]
+dependencies = ["uristepper>=0.1.0", "uristepperedge>=0.1.0", "uricore>=0.1.8"]
 
 [tool.uv.sources]
 uristepper = { path = "../uristepper", editable = true }
 uristepperedge = { path = "../uristepperedge", editable = true }
-urisysedge = { path = "../urisysedge", editable = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

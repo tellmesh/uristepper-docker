@@ -13,12 +13,14 @@ ENV PYTHONUNBUFFERED=1 \
     URISYS_NODE_ID=uristepper-docker
 
 WORKDIR /build
-COPY urisysedge /build/urisysedge
+COPY urirouter /build/urirouter
+COPY uricore /build/uricore
 COPY uristepper /build/uristepper
 COPY uristepperedge /build/uristepperedge
 COPY uristepper-docker /build/uristepper-docker
 RUN pip install --no-cache-dir \
-    -e /build/urisysedge \
+    -e /build/urirouter \
+    -e /build/uricore \
     -e /build/uristepper \
     -e /build/uristepperedge \
     && mkdir -p /data /app/config \
