@@ -1,3 +1,5 @@
+> **DEPRECATED (2026-06-18):** the Docker deployment now lives inside the `uristepper` package at [`uristepper/docker/`](https://github.com/tellmesh/uristepper/tree/main/docker). This repo is no longer maintained.
+
 # uristepper-docker
 
 Minimalny, samodzielny przykład `stepper://` uruchamiany przez Docker Compose.
